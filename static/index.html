@@ -1,34 +1,42 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微信 Web 版</title>
-    <style>
-        body { font-family: sans-serif; background: #ebebeb; margin: 0; display: flex; flex-direction: column; height: 100vh; }
-        #chat { flex: 1; overflow-y: auto; padding: 15px; }
-        .msg-row { margin-bottom: 15px; display: flex; flex-direction: column; }
-        .msg-content { background: white; padding: 8px 12px; border-radius: 5px; max-width: 70%; align-self: flex-start; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .mine { align-self: flex-end; background: #95ec69; }
-        .sender-name { font-size: 12px; color: #888; margin-bottom: 4px; }
-        .input-area { background: #f5f5f5; padding: 10px; display: flex; gap: 10px; border-top: 1px solid #ddd; }
-        input[type="text"] { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 8px 15px; background: #07c160; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        img { max-width: 200px; border-radius: 5px; }
-        .audio-btn { cursor: pointer; color: #007bff; text-decoration: underline; }
-    </style>
+    <title>Mini-WeChat Pro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="chat"></div>
-    <div class="input-area">
-        <input type="text" id="textInput" placeholder="请输入消息...">
-        <button onclick="sendText()">发送</button>
+    <div id="app">
+        <div id="auth-container">
+            <h2>微信登录</h2>
+            <input type="text" id="username" placeholder="用户名">
+            <input type="password" id="password" placeholder="密码">
+            <button onclick="handleAuth('login')">登录</button>
+            <button style="background: #555;" onclick="handleAuth('register')">注册账号</button>
+        </div>
+
+        <div id="chat-container" class="hidden">
+            <div id="chat-window"></div>
+            
+            <div id="input-area">
+                <div id="reply-bar" class="reply-preview hidden">
+                    <span id="reply-text"></span>
+                    <span style="cursor:pointer" onclick="cancelReply()">✕</span>
+                </div>
+                
+                <div class="input-row">
+                    <input type="text" id="msgInput" placeholder="请输入消息...">
+                    <button onclick="sendText()">发送</button>
+                </div>
+                <div class="input-row">
+                    <input type="file" id="fileInput" style="display:none" onchange="uploadFile()">
+                    <button style="background:#28a745" onclick="document.getElementById('fileInput').click()">📁 图片/语音</button>
+                    <input type="number" id="targetId" placeholder="目标用户ID" style="width:80px">
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="input-area" style="padding-top: 0;">
-        <input type="file" id="fileInput">
-        <button style="background: #28a745;" onclick="uploadFile()">发送图片/语音</button>
-    </div>
-    <audio id="notifSound" src="https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3"></audio>
+    <audio id="notifSound" src="notification.mp3"></audio>
     <script src="app.js"></script>
 </body>
 </html>
