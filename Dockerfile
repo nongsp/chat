@@ -1,5 +1,5 @@
 # 阶段1: 编译环境
-FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.24-alpine AS builder
 WORKDIR /app
 
 # 设置 Go 代理（可选，但在某些环境下能大幅提高下载成功率）
