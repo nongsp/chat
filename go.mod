@@ -1,4 +1,4 @@
-module mini-wechat
+module chat
 
 go 1.24.0
 
